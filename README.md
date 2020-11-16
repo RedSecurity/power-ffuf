@@ -18,5 +18,4 @@ bash power-ffuf
 ## ScreenShot
 ![salam](./apps/screen.png)
 ## Contact us
-WebSite: redsecurity.xyz
-Email: info@redsecurity.xyz
+WebSite: redsecurity.xyz<br/>Email: info@redsecurity.xyz
