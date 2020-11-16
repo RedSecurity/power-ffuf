@@ -1,0 +1,43 @@
+﻿#!/bin/bash
+first_print(){
+clear
+echo `tput setaf 45`"
+ ██████╗  ██████╗ ██╗    ██╗███████╗██████╗     ███████╗██╗   ██╗███████╗███████╗
+ ██╔══██╗██╔═══██╗██║    ██║██╔════╝██╔══██╗    ██╔════╝██║   ██║██╔════╝██╔════╝
+ ██████╔╝██║   ██║██║ █╗ ██║█████╗  ██████╔╝    █████╗  ██║   ██║█████╗  █████╗  
+ ██╔═══╝ ██║   ██║██║███╗██║██╔══╝  ██╔══██╗    ██╔══╝  ██║   ██║██╔══╝  ██╔══╝  
+ ██║     ╚██████╔╝╚███╔███╔╝███████╗██║  ██║    ██║     ╚██████╔╝██║     ██║     
+ ╚═╝      ╚═════╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝    ╚═╝      ╚═════╝ ╚═╝     ╚═╝     
+  ________________________________________________________________________
+ |                                                                        |
+ |             	       Web Site: RedSecurity.xyz                          |
+ |		        Creator: RedSecurity Admin			  |
+ |		         E-mail: Info@RedSecurity.xyz			  |
+ |									  | 
+ --------------------------------------------------------------------------
+"
+}
+first_print
+sleep .12
+echo `tput setaf 202` 'Please select an option :) '
+sleep .12
+echo '[1] Simple Scan'
+sleep .12
+echo '[2] Advanced Scan'
+sleep .12
+echo '[3] Full Scan'
+sleep .12
+echo '[4] Admin Panel Finder'
+sleep .12
+echo '[5] INFO'
+echo ''
+sleep .12
+read -p' ┌─[your chois]
+ └──╼ ' x
+case $x in
+"1") bash pages/simple_scan;;
+"2") bash pages/advanced_scan ;;
+"3") bash pages/full_scan ;;
+"4") bash pages/admin_scan ;;
+"5") bash "pages/info" ;;
+esac

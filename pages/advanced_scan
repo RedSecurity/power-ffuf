@@ -1,0 +1,366 @@
+﻿#!/bin/bash
+first_print(){
+clear
+echo `tput setaf 45`"
+ ██████╗  ██████╗ ██╗    ██╗███████╗██████╗     ███████╗██╗   ██╗███████╗███████╗
+ ██╔══██╗██╔═══██╗██║    ██║██╔════╝██╔══██╗    ██╔════╝██║   ██║██╔════╝██╔════╝
+ ██████╔╝██║   ██║██║ █╗ ██║█████╗  ██████╔╝    █████╗  ██║   ██║█████╗  █████╗  
+ ██╔═══╝ ██║   ██║██║███╗██║██╔══╝  ██╔══██╗    ██╔══╝  ██║   ██║██╔══╝  ██╔══╝  
+ ██║     ╚██████╔╝╚███╔███╔╝███████╗██║  ██║    ██║     ╚██████╔╝██║     ██║     
+ ╚═╝      ╚═════╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝    ╚═╝      ╚═════╝ ╚═╝     ╚═╝     
+  ________________________________________________________________________
+ |                                                                        |
+ |             	       Web Site: RedSecurity.xyz                          |
+ |		        Creator: RedSecurity Admin			  |
+ |		         E-mail: Info@RedSecurity.xyz			  |
+ |									  | 
+ --------------------------------------------------------------------------
+"
+}
+output_yes(){
+sleep .12
+
+}
+scan(){
+echo `tput setaf 249`
+./apps/ffuf/ffuf -w $path -u $url/FUZZ -t $threads $delay -timeout $timeout -o ./advanced/result -of csv -mc all > /dev/null
+echo `tput setaf  82`
+printf P;sleep .12 ;printf l;sleep .12;printf e;sleep .12;printf a;sleep .12;printf s;sleep .12;printf e;sleep .12;printf " W";sleep .12;printf a;sleep .12;printf i;sleep .12;printf "t";sleep .2;printf " !";sleep .2; printf \!;sleep .2;printf "! \n"
+echo `tput setaf 51`
+res=`cat advanced/result | grep ,200,`
+
+for i in $res
+do
+res2=`echo $i | cut -d ',' -f 5`
+if [ "$res2" == 200 ]
+then
+echo $i | cut -d ',' -f 1 | sed "s@^@$url\/@" >> advanced/status_200
+fi
+done
+cat advanced/result | cut -d ',' -f 3 | grep $url | sort | uniq -i >> ./advanced/status_300
+cat advanced/status_300 | sed "s@$url\/@@"  > advanced/status_300_2
+./apps/ffuf/ffuf -w advanced/status_300_2 -u $url/FUZZ -t $threads $delay -timeout $timeout -o ./advanced/status_300_ok -of csv -s -mc all > /dev/null
+res3=`cat advanced/status_300_ok | grep ,200,`
+for b in $res3
+do
+res4=`echo $b | cut -d ',' -f 5`
+if [ "$res4" == 200 ]
+then
+echo $b | cut -d ',' -f 1 | sed "s@^@$url\/@" >> advanced/status_300_200
+fi
+done
+cat advanced/status_300_ok | grep -v ,200, | cut -d ',' -f 3 | sort | uniq -i | sed "s@$url\/@@" > advanced/3000
+./apps/ffuf/ffuf -w advanced/3000 -u $url/FUZZ -t $threads $delay -timeout $timeout -o ./advanced/3000_ok -of csv -s -mc 200 > /dev/null
+if [ "$outputpath" == "SDDS" ]
+then
+(cat advanced/3000_ok | cut -d ',' -f 3 ; cat advanced/status_200 ; cat advanced/status_300_200) | sort | uniq -i | grep $url
+else
+otp_res=`(cat advanced/3000_ok | cut -d ',' -f 3 ; cat advanced/status_200 ; cat advanced/status_300_200) | sort | uniq -i | grep $url`
+otp
+echo "Result Saved in $outputpath.html"
+echo ""
+fi
+}
+web_cat(){
+web=`cat ./advanced/weburl | cut -d ',' -f 5 | grep 404`
+}
+web_cat2(){
+web=`cat ./advanced/weburl | cut -d ',' -f 5 | grep 200`
+}
+otp(){
+echo "" > advanced/otp
+for o in $otp_res
+do
+echo \<td\>\<a href\=\"$o\"\>$o\<\/a\>\<\/td\> >> advanced/otp
+done
+echo '<html style="background-color: #00ccff"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta name="viewport"content="width=device-width, initial-scale=1, maximum-scale=1.0"/><title>Easy FFUF Report </title><link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet"/><link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/><link rel="stylesheet"type="text/css"href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css"/><style>td{background-color: #cccccc;font-size: 2rem;  display: flex;justify-content: center}td:nth-child(even){background-color: #eeeeee;}</style></head><body><nav><div class="nav-wrapper"><p></p><ul id="nav-mobile" class="right hide-on-med-and-down"></ul></div></nav><main class="section no-pad-bot" id="index-banner"><div class="container"><br/><br/>
+<h1 class="header center ">FFUF Report</h1><div class="row center"><pre>2020-11-09T06:10:50-05:00</pre><table id="ffufreport"><tbody>
+<tr>' > $outputpath.html
+cat advanced/otp >> $outputpath.html
+echo '</tr>             
+</tbody></table></div><br /><br /></div></main><script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script><script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script><script>$(document).ready(function(){$('#ffufreport').DataTable({"aLengthMenu":[[250, 500, 1000, 2500, -1],[250, 500, 1000, 2500, "All"]]})
+        $('select').formSelect();});</script><style>body{display:flex;min-height:100vh;flex-direction:column;}main{flex: 1 0 auto;}</style></body></html>' >> $outputpath.html
+}
+
+
+#-------------functions()
+echo "" > advanced/status_200
+echo "" > advanced/status_300_200
+echo "" > advanced/status_300
+echo "" > advanced/3000
+echo "" > advanced/result
+echo "" > advanced/weburl
+echo "" > advanced/testurl
+echo "" > advanced/3000_ok
+echo "" > advanced/otp
+echo "" > advanced/status_300_2
+echo "" > advanced/status_300_ok
+echo "" > advanced/testurl2
+
+outputpath="SDDS"
+first_print
+echo `tput setaf 202`
+sleep .12
+read -p' ┌─[Please Enter Your URL]
+ └──╼ ' url
+if [ "$url" == "" ]
+then
+while [ 1 == 1 ]
+do
+read -p' ┌─[Please Enter Your URL]
+ └──╼ ' url
+if [ "$url" != "" ]
+then
+break
+fi
+done
+fi
+
+echo `tput setaf 197`
+read -p' ┌─[Do You Want To use Default Word List? [Y]/N ]
+ └──╼ ' yon
+case $yon in
+"Y") 
+path="advanced/wordlist.txt"
+;;
+"y")
+path="advanced/wordlist.txt"
+;;
+"N") 
+echo `tput setaf 47`
+read -p' ┌─[Please Enter Your Word List Path]
+ └──╼ ' path
+if [ "$path" == "" ]
+then
+while [ 1 == 1 ]
+do
+read -p' ┌─[Please Enter Your Word List Path]
+ └──╼ ' path
+if [ "$path" != "" ]
+then
+break
+fi
+done
+fi
+;;
+"n")
+echo `tput setaf 47`
+read -p' ┌─[Please Enter Your Word List Path]
+ └──╼ ' path
+if [ "$path" == "" ]
+then
+while [ 1 == 1 ]
+do
+read -p' ┌─[Please Enter Your Word List Path]
+ └──╼ ' path
+if [ "$path" != "" ]
+then
+break
+fi
+done
+fi
+;;
+"")
+path="advanced/wordlist.txt"
+;;
+*) echo `tput setaf 160`
+echo "Your Input is Invalid :)"
+echo ""
+sleep 1
+exit;; 
+esac
+echo `tput setaf 63`
+read -p' ┌─[Enter Number of Concurrent Threads (default: 30) ]
+ └──╼ ' threads
+if [ "$threads" == "" ]
+then
+threads='30'
+fi
+
+echo `tput setaf 183`
+read -p' ┌─[Enter Seconds of Timeout (default: 1) ]
+ └──╼ ' timeout
+case $timeout in
+"") timeout='1' ;;
+esac
+echo `tput setaf 215`
+read -p' ┌─[Do You Want To Delay Between Requests [N]/Y ]
+ └──╼ ' delay_yn
+case $delay_yn in
+"Y")
+echo `tput setaf 65`
+read -p' ┌─[Enter Seconds of Delay Between Requests (default: 0.1) ]
+ └──╼ ' delay
+if [ "$delay" == "" ]
+then
+delay='0.1'
+fi
+delay="-p $delay"
+
+;;
+"y")
+echo `tput setaf 65`
+read -p' ┌─[Enter Seconds Of Delay Between Requests (default: 0.1) ]
+ └──╼ ' delay
+if [ "$delay" == "" ]
+then
+delay='0.1'
+fi
+delay="-p $delay"
+
+;;
+"N") ;;
+"n") ;;
+"")  ;;
+*) echo `tput setaf 160`
+echo "Your Input is Invalid :)"
+echo ""
+sleep 1
+exit;; 
+esac
+
+echo `tput setaf 131`
+read -p' ┌─[Do You Want To Save Output? [N]/Y ]
+ └──╼ ' output
+case $output in
+"N") ;;
+"n") ;;
+"Y")
+echo `tput setaf 103`
+read -p' ┌─[Enter Your Output File Path]
+ └──╼ ' outputpath
+if [ "$outputpath" == "" ]
+then
+while [ 1 == 1 ]
+do
+read -p' ┌─[Enter Your Output File Path]
+ └──╼ ' outputpath
+if [ "$outputpath" != "" ]
+then
+break
+fi
+done
+fi
+;;
+"y")
+echo `tput setaf 103`
+read -p' ┌─[Enter Your Output File Path]
+ └──╼ ' outputpath
+if [ "$outputpath" == "" ]
+then
+while [ 1 == 1 ]
+do
+read -p' ┌─[Enter Your Output File Path]
+ └──╼ ' outputpath
+if [ "$outputpath" != "" ]
+then
+break
+fi
+done
+fi
+;;
+"") ;;
+*) echo `tput setaf 160`
+echo "Your Input is Invalid :)"
+echo ""
+sleep 1
+exit;; 
+esac
+
+#----------------------
+
+url=`echo $url | sed 's/https:\/\///' | sed 's/http:\/\///' | sed 's/^/oupuput/' | sed 's/oupuputwww.//' | sed 's/oupuput//' | cut -d '/' -f 1`
+
+echo "sahfgrherah123" > ./advanced/testurl
+./apps/ffuf/ffuf -w ./advanced/testurl -u http://$url/FUZZ -s -of csv -o ./advanced/weburl -mc all -timeout 1 > /dev/null
+web_cat
+if [ "$web" == 404 ]
+then
+url=http://$url
+scan
+exit
+fi
+./apps/ffuf/ffuf -w ./advanced/testurl -u https://$url/FUZZ -s -of csv -o ./advanced/weburl -mc all -timeout 1 > /dev/null
+web_cat
+if [ "$web" == 404 ]
+then
+url=https://$url
+scan
+exit
+fi
+./apps/ffuf/ffuf -w ./advanced/testurl -u http://www.$url/FUZZ -s -of csv -o ./advanced/weburl -mc all -timeout 1 > /dev/null
+web_cat
+if [ "$web" == 404 ]
+then
+url=http://www.$url
+scan
+exit
+fi
+./apps/ffuf/ffuf -w ./advanced/testurl -u https://www.$url/FUZZ -s -of csv -o ./advanced/weburl -mc all -timeout 1 > /dev/null
+web_cat
+if [ "$web" == 404 ]
+then
+url=https://www.$url
+scan
+exit
+fi
+echo "/" > ./advanced/testurl2
+./apps/ffuf/ffuf -w ./advanced/testurl2 -u http://$url/FUZZ -s -of csv -o ./advanced/weburl -mc 200 -timeout 1 > /dev/null
+web_cat2
+if [ "$web" == 200 ]
+then
+url=https://www.$url
+scan
+exit
+fi
+./apps/ffuf/ffuf -w ./advanced/testurl2 -u http://www.$url/FUZZ -s -of csv -o ./advanced/weburl -mc 200 -timeout 1 > /dev/null
+web_cat2
+if [ "$web" == 200 ]
+then
+url=https://www.$url
+scan
+exit
+fi
+./apps/ffuf/ffuf -w ./advanced/testurl2 -u https://$url/FUZZ -s -of csv -o ./advanced/weburl -mc 200 -timeout 1 > /dev/null
+web_cat2
+if [ "$web" == 200 ]
+then
+url=https://www.$url
+scan
+exit
+fi
+./apps/ffuf/ffuf -w ./advanced/testurl2 -u https://www.$url/FUZZ -s -of csv -o ./advanced/weburl -mc 200 -timeout 1 > /dev/null
+web_cat2
+if [ "$web" == 200 ]
+then
+url=https://www.$url
+scan
+exit
+fi
+echo "Sorry , Apparently your url is wrong :)"
+#------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
