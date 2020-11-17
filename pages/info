@@ -1,0 +1,27 @@
+#!/bin/bash
+clear
+echo `tput setaf 45`"
+ ██████╗  ██████╗ ██╗    ██╗███████╗██████╗     ███████╗██╗   ██╗███████╗███████╗
+ ██╔══██╗██╔═══██╗██║    ██║██╔════╝██╔══██╗    ██╔════╝██║   ██║██╔════╝██╔════╝
+ ██████╔╝██║   ██║██║ █╗ ██║█████╗  ██████╔╝    █████╗  ██║   ██║█████╗  █████╗  
+ ██╔═══╝ ██║   ██║██║███╗██║██╔══╝  ██╔══██╗    ██╔══╝  ██║   ██║██╔══╝  ██╔══╝  
+ ██║     ╚██████╔╝╚███╔███╔╝███████╗██║  ██║    ██║     ╚██████╔╝██║     ██║     
+ ╚═╝      ╚═════╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝    ╚═╝      ╚═════╝ ╚═╝     ╚═╝     
+  ________________________________________________________________________
+ |                                                                        |
+ |             	       WebSite: RedSecurity.xyz                           |
+ |		        Creator: RedSecurity Admin			  |
+ |		         E-mail: Info@RedSecurity.xyz			  |
+ |									  | 
+ --------------------------------------------------------------------------
+"
+sleep .12
+echo `tput setaf 209` '  Power FFUF is a very Fast and powerful web fuzzer'
+echo '    Power FFUF uses ffuf and hakrawler to scan'
+echo '     Power FFUF is in some cases better and easier than ffuf, although it does not have some of the options of ffuf'
+echo '      Working with Power FFUF is very simple and you do not need'
+echo '      to know the different switches and install the prerequisites'
+echo '       In a word: power ffuf is a great tool for Scan'
+echo '        WebSite: RedSecurity.xyz'
+echo '         E-mail: Info@RedSecurity.xyz'
+echo ''
