@@ -1,7 +1,5 @@
 # power-ffuf
-Power FFUF is Very Fast and Powerful Web Fuzzer
-Power FFUF uses ffuf and hakrawler to scan
-power ffuf is in some cases better and easier than ffuf, although it does not have some of the options of ffuf
+Power FFUF is Very Fast and Powerful Web Fuzzer<br/>Power FFUF uses ffuf and hakrawler to scan<br/>power ffuf is in some cases better and easier than ffuf, although it does not have some of the options of ffuf
 ## installation
 1. Install Golang
 2. Run the command below
