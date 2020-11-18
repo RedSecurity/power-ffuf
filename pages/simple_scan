@@ -18,7 +18,7 @@ echo `tput setaf 45`"
 }
 scan(){
 echo `tput setaf 249`
-./apps/ffuf/ffuf -w $path -u $url/FUZZ -o ./default/result -of csv -mc all -t 30 -timeout 1 > /dev/null
+./apps/ffuf/ffuf -w $path -u $url/FUZZ -o ./default/result -of csv -mc all -t 30 -timeout 7 > /dev/null
 echo `tput setaf  82`
 printf P;sleep .12 ;printf l;sleep .12;printf e;sleep .12;printf a;sleep .12;printf s;sleep .12;printf e;sleep .12;printf " W";sleep .12;printf a;sleep .12;printf i;sleep .12;printf "t";sleep .2;printf " !";sleep .2; printf \!;sleep .2;printf "! \n"
 echo `tput setaf 51`
@@ -34,7 +34,7 @@ fi
 done
 cat default/result | cut -d ',' -f 3 | grep $url | sort | uniq -i >> ./default/status_300
 cat default/status_300 | sed "s@$url\/@@"  > default/status_300_2
-./apps/ffuf/ffuf -w default/status_300_2 -u $url/FUZZ -o ./default/status_300_ok -of csv -s -t 30 -mc all -timeout 1 > /dev/null
+./apps/ffuf/ffuf -w default/status_300_2 -u $url/FUZZ -o ./default/status_300_ok -of csv -s -t 30 -mc all -timeout 7 > /dev/null
 res3=`cat default/status_300_ok | grep ,200,`
 for b in $res3
 do
@@ -45,7 +45,7 @@ echo $b | cut -d ',' -f 1 | sed "s@^@$url\/@" >> default/status_300_200
 fi
 done
 cat default/status_300_ok | grep -v ,200, | cut -d ',' -f 3 | sort | uniq -i | sed "s@$url\/@@" > default/3000
-./apps/ffuf/ffuf -w default/3000 -u $url/FUZZ -o ./default/3000_ok -of csv -s -mc 200 -t 30 -timeout 1 > /dev/null
+./apps/ffuf/ffuf -w default/3000 -u $url/FUZZ -o ./default/3000_ok -of csv -s -mc 200 -t 30 -timeout 7 > /dev/null
 
 if [ "$outputpath" == "SDDS" ]
 then
@@ -221,7 +221,7 @@ esac
 url=`echo $url | sed 's/https:\/\///' | sed 's/http:\/\///' | sed 's/^/oupuput/' | sed 's/oupuputwww.//' | sed 's/oupuput//' | cut -d '/' -f 1`
 
 echo "sahfgrherah123" > ./default/testurl
-./apps/ffuf/ffuf -w ./default/testurl -u http://$url/FUZZ -s -of csv -o ./default/weburl -mc all -t 30 -timeout 1 > /dev/null
+./apps/ffuf/ffuf -w ./default/testurl -u http://$url/FUZZ -s -of csv -o ./default/weburl -mc all -t 30 -timeout 7 > /dev/null
 web_cat
 if [ "$web" == 404 ]
 then
@@ -229,7 +229,7 @@ url=http://$url
 scan
 exit
 fi
-./apps/ffuf/ffuf -w ./default/testurl -u https://$url/FUZZ -s -of csv -o ./default/weburl -mc all -t 30 -timeout 1 > /dev/null
+./apps/ffuf/ffuf -w ./default/testurl -u https://$url/FUZZ -s -of csv -o ./default/weburl -mc all -t 30 -timeout 7 > /dev/null
 web_cat
 if [ "$web" == 404 ]
 then
@@ -237,7 +237,7 @@ url=https://$url
 scan
 exit
 fi
-./apps/ffuf/ffuf -w ./default/testurl -u http://www.$url/FUZZ -s -of csv -o ./default/weburl -mc all -t 30 -timeout 1 > /dev/null
+./apps/ffuf/ffuf -w ./default/testurl -u http://www.$url/FUZZ -s -of csv -o ./default/weburl -mc all -t 30 -timeout 7 > /dev/null
 web_cat
 if [ "$web" == 404 ]
 then
@@ -245,7 +245,7 @@ url=http://www.$url
 scan
 exit
 fi
-./apps/ffuf/ffuf -w ./default/testurl -u https://www.$url/FUZZ -s -of csv -o ./default/weburl -mc all -t 30 -timeout 1 > /dev/null
+./apps/ffuf/ffuf -w ./default/testurl -u https://www.$url/FUZZ -s -of csv -o ./default/weburl -mc all -t 30 -timeout 7 > /dev/null
 web_cat
 if [ "$web" == 404 ]
 then
@@ -254,7 +254,7 @@ scan
 exit
 fi
 echo "/" > ./default/testurl2
-./apps/ffuf/ffuf -w ./default/testurl2 -u http://$url/FUZZ -s -of csv -o ./default/weburl -mc 200 -t 30 -timeout 1 > /dev/null
+./apps/ffuf/ffuf -w ./default/testurl2 -u http://$url/FUZZ -s -of csv -o ./default/weburl -mc 200 -t 30 -timeout 7 > /dev/null
 web_cat2
 if [ "$web" == 200 ]
 then
@@ -262,7 +262,7 @@ url=https://www.$url
 scan
 exit
 fi
-./apps/ffuf/ffuf -w ./default/testurl2 -u http://www.$url/FUZZ -s -of csv -o ./default/weburl -mc 200 -t 30 -timeout 1 > /dev/null
+./apps/ffuf/ffuf -w ./default/testurl2 -u http://www.$url/FUZZ -s -of csv -o ./default/weburl -mc 200 -t 30 -timeout 7 > /dev/null
 web_cat2
 if [ "$web" == 200 ]
 then
@@ -270,7 +270,7 @@ url=https://www.$url
 scan
 exit
 fi
-./apps/ffuf/ffuf -w ./default/testurl2 -u https://$url/FUZZ -s -of csv -o ./default/weburl -mc 200 -t 30 -timeout 1 > /dev/null
+./apps/ffuf/ffuf -w ./default/testurl2 -u https://$url/FUZZ -s -of csv -o ./default/weburl -mc 200 -t 30 -timeout 7 > /dev/null
 web_cat2
 if [ "$web" == 200 ]
 then
@@ -278,7 +278,7 @@ url=https://www.$url
 scan
 exit
 fi
-./apps/ffuf/ffuf -w ./default/testurl2 -u https://www.$url/FUZZ -s -of csv -o ./default/weburl -mc 200 -t 30 -timeout 1 > /dev/null
+./apps/ffuf/ffuf -w ./default/testurl2 -u https://www.$url/FUZZ -s -of csv -o ./default/weburl -mc 200 -t 30 -timeout 7 > /dev/null
 web_cat2
 if [ "$web" == 200 ]
 then

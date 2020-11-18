@@ -178,10 +178,10 @@ threads='30'
 fi
 
 echo `tput setaf 183`
-read -p' ┌─[Enter Seconds of Timeout (default: 1) ]
+read -p' ┌─[Enter Seconds of Timeout (default: 7) ]
  └──╼ ' timeout
 case $timeout in
-"") timeout='1' ;;
+"") timeout='7' ;;
 esac
 echo `tput setaf 215`
 read -p' ┌─[Do You Want To Delay Between Requests [N]/Y ]
@@ -272,7 +272,7 @@ esac
 url=`echo $url | sed 's/https:\/\///' | sed 's/http:\/\///' | sed 's/^/oupuput/' | sed 's/oupuputwww.//' | sed 's/oupuput//' | cut -d '/' -f 1`
 
 echo "sahfgrherah123" > ./advanced/testurl
-./apps/ffuf/ffuf -w ./advanced/testurl -u http://$url/FUZZ -s -of csv -o ./advanced/weburl -mc all -timeout 1 > /dev/null
+./apps/ffuf/ffuf -w ./advanced/testurl -u http://$url/FUZZ -s -of csv -o ./advanced/weburl -mc all -timeout 7 > /dev/null
 web_cat
 if [ "$web" == 404 ]
 then
@@ -280,7 +280,7 @@ url=http://$url
 scan
 exit
 fi
-./apps/ffuf/ffuf -w ./advanced/testurl -u https://$url/FUZZ -s -of csv -o ./advanced/weburl -mc all -timeout 1 > /dev/null
+./apps/ffuf/ffuf -w ./advanced/testurl -u https://$url/FUZZ -s -of csv -o ./advanced/weburl -mc all -timeout 7 > /dev/null
 web_cat
 if [ "$web" == 404 ]
 then
@@ -288,7 +288,7 @@ url=https://$url
 scan
 exit
 fi
-./apps/ffuf/ffuf -w ./advanced/testurl -u http://www.$url/FUZZ -s -of csv -o ./advanced/weburl -mc all -timeout 1 > /dev/null
+./apps/ffuf/ffuf -w ./advanced/testurl -u http://www.$url/FUZZ -s -of csv -o ./advanced/weburl -mc all -timeout 7 > /dev/null
 web_cat
 if [ "$web" == 404 ]
 then
@@ -296,7 +296,7 @@ url=http://www.$url
 scan
 exit
 fi
-./apps/ffuf/ffuf -w ./advanced/testurl -u https://www.$url/FUZZ -s -of csv -o ./advanced/weburl -mc all -timeout 1 > /dev/null
+./apps/ffuf/ffuf -w ./advanced/testurl -u https://www.$url/FUZZ -s -of csv -o ./advanced/weburl -mc all -timeout 7 > /dev/null
 web_cat
 if [ "$web" == 404 ]
 then
@@ -305,7 +305,7 @@ scan
 exit
 fi
 echo "/" > ./advanced/testurl2
-./apps/ffuf/ffuf -w ./advanced/testurl2 -u http://$url/FUZZ -s -of csv -o ./advanced/weburl -mc 200 -timeout 1 > /dev/null
+./apps/ffuf/ffuf -w ./advanced/testurl2 -u http://$url/FUZZ -s -of csv -o ./advanced/weburl -mc 200 -timeout 7 > /dev/null
 web_cat2
 if [ "$web" == 200 ]
 then
@@ -313,7 +313,7 @@ url=https://www.$url
 scan
 exit
 fi
-./apps/ffuf/ffuf -w ./advanced/testurl2 -u http://www.$url/FUZZ -s -of csv -o ./advanced/weburl -mc 200 -timeout 1 > /dev/null
+./apps/ffuf/ffuf -w ./advanced/testurl2 -u http://www.$url/FUZZ -s -of csv -o ./advanced/weburl -mc 200 -timeout 7 > /dev/null
 web_cat2
 if [ "$web" == 200 ]
 then
@@ -321,7 +321,7 @@ url=https://www.$url
 scan
 exit
 fi
-./apps/ffuf/ffuf -w ./advanced/testurl2 -u https://$url/FUZZ -s -of csv -o ./advanced/weburl -mc 200 -timeout 1 > /dev/null
+./apps/ffuf/ffuf -w ./advanced/testurl2 -u https://$url/FUZZ -s -of csv -o ./advanced/weburl -mc 200 -timeout 7 > /dev/null
 web_cat2
 if [ "$web" == 200 ]
 then
@@ -329,7 +329,7 @@ url=https://www.$url
 scan
 exit
 fi
-./apps/ffuf/ffuf -w ./advanced/testurl2 -u https://www.$url/FUZZ -s -of csv -o ./advanced/weburl -mc 200 -timeout 1 > /dev/null
+./apps/ffuf/ffuf -w ./advanced/testurl2 -u https://www.$url/FUZZ -s -of csv -o ./advanced/weburl -mc 200 -timeout 7 > /dev/null
 web_cat2
 if [ "$web" == 200 ]
 then
