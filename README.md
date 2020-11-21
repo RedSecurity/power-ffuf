@@ -4,7 +4,9 @@ Power FFUF is Very Fast and Powerful Web Fuzzer<br/>Power FFUF uses ffuf and hak
 1. Install Golang
 2. Run the commands below
 ```
-git clone https://github.com/RedSecurity/power-ffuf.git\ncd power-ffuf\nbash installer.sh
+git clone https://github.com/RedSecurity/power-ffuf.git
+cd power-ffuf
+bash installer.sh
 ```
 ## Usage
 Just run the following command in the power-ffuf directory
