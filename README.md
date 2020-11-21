@@ -2,9 +2,9 @@
 Power FFUF is Very Fast and Powerful Web Fuzzer<br/>Power FFUF uses ffuf and hakrawler to scan<br/>Power FFUF is in some cases better and easier than ffuf, although it does not have some of the options of ffuf
 ## installation
 1. Install Golang
-2. Run the command below
+2. Run the commands below
 ```
-bash installer.sh
+git clone https://github.com/RedSecurity/power-ffuf.git\ncd power-ffuf\nbash installer.sh
 ```
 ## Usage
 Just run the following command in the power-ffuf directory
