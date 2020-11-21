@@ -12,7 +12,7 @@ go build
 cd ../../
 clear
 echo ""
-echo `tput setaf 82` "Installation was Successful !!!"
+echo `tput setaf 82` "Installation was Successful !!!" `tput sgr0`
 echo ""
 rm -f ./apps/screen.png
 rm -f installer.sh
