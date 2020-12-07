@@ -54,8 +54,8 @@ else
 otp_res=`(cat default/3000_ok | cut -d ',' -f 3 ; cat default/status_200 ; cat default/status_300_200) | sort | uniq -i | grep $url`
 otp
 echo "Result Saved in $outputpath.html"
-echo ""
 fi
+echo `tput setaf 10` "" `tput sgr0`
 }
 web_cat(){
 web=`cat ./default/weburl | cut -d ',' -f 5 | grep 404`
