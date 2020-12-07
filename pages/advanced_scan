@@ -22,11 +22,9 @@ sleep .12
 
 }
 scan(){
-echo `tput setaf 249`
 ./apps/ffuf/ffuf -w $path -u $url/FUZZ -t $threads $delay -timeout $timeout -o ./advanced/result -of csv -mc all > /dev/null
 echo `tput setaf  82`
 printf P;sleep .12 ;printf l;sleep .12;printf e;sleep .12;printf a;sleep .12;printf s;sleep .12;printf e;sleep .12;printf " W";sleep .12;printf a;sleep .12;printf i;sleep .12;printf "t";sleep .2;printf " !";sleep .2; printf \!;sleep .2;printf "! \n"
-echo `tput setaf 51`
 res=`cat advanced/result | grep ,200,`
 
 for i in $res
@@ -271,66 +269,28 @@ esac
 
 url=`echo $url | sed 's/https:\/\///' | sed 's/http:\/\///' | sed 's/^/oupuput/' | sed 's/oupuputwww.//' | sed 's/oupuput//' | cut -d '/' -f 1`
 
-echo "sahfgrherah123" > ./advanced/testurl
-./apps/ffuf/ffuf -w ./advanced/testurl -u http://$url/FUZZ -s -of csv -o ./advanced/weburl -mc all -timeout 7 > /dev/null
-web_cat
-if [ "$web" == 404 ]
+web=`curl -I http://$url -s | head -1 | awk '{print $2}'`
+if [ "$web" == 200 ]
 then
 url=http://$url
 scan
 exit
 fi
-./apps/ffuf/ffuf -w ./advanced/testurl -u https://$url/FUZZ -s -of csv -o ./advanced/weburl -mc all -timeout 7 > /dev/null
-web_cat
-if [ "$web" == 404 ]
+web=`curl -I https://$url -s | head -1 | awk '{print $2}'`
+if [ "$web" == 200 ]
 then
 url=https://$url
 scan
 exit
 fi
-./apps/ffuf/ffuf -w ./advanced/testurl -u http://www.$url/FUZZ -s -of csv -o ./advanced/weburl -mc all -timeout 7 > /dev/null
-web_cat
-if [ "$web" == 404 ]
+web=`curl -I http://www.$url -s | head -1 | awk '{print $2}'`
+if [ "$web" == 200 ]
 then
 url=http://www.$url
 scan
 exit
 fi
-./apps/ffuf/ffuf -w ./advanced/testurl -u https://www.$url/FUZZ -s -of csv -o ./advanced/weburl -mc all -timeout 7 > /dev/null
-web_cat
-if [ "$web" == 404 ]
-then
-url=https://www.$url
-scan
-exit
-fi
-echo "/" > ./advanced/testurl2
-./apps/ffuf/ffuf -w ./advanced/testurl2 -u http://$url/FUZZ -s -of csv -o ./advanced/weburl -mc 200 -timeout 7 > /dev/null
-web_cat2
-if [ "$web" == 200 ]
-then
-url=https://www.$url
-scan
-exit
-fi
-./apps/ffuf/ffuf -w ./advanced/testurl2 -u http://www.$url/FUZZ -s -of csv -o ./advanced/weburl -mc 200 -timeout 7 > /dev/null
-web_cat2
-if [ "$web" == 200 ]
-then
-url=https://www.$url
-scan
-exit
-fi
-./apps/ffuf/ffuf -w ./advanced/testurl2 -u https://$url/FUZZ -s -of csv -o ./advanced/weburl -mc 200 -timeout 7 > /dev/null
-web_cat2
-if [ "$web" == 200 ]
-then
-url=https://www.$url
-scan
-exit
-fi
-./apps/ffuf/ffuf -w ./advanced/testurl2 -u https://www.$url/FUZZ -s -of csv -o ./advanced/weburl -mc 200 -timeout 7 > /dev/null
-web_cat2
+web=`curl -I https://www.$url -s | head -1 | awk '{print $2}'`
 if [ "$web" == 200 ]
 then
 url=https://www.$url
