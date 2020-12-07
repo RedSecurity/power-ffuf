@@ -61,8 +61,8 @@ else
 otp_res=`(cat full/3000_ok | cut -d ',' -f 3;cat full/crawler_result; cat full/status_200 ; cat full/status_300_200) | sort | uniq -i | sed 's/$/testtesttest/' | grep -v $url/testtesttest | grep -v $url\testtesttest | sed 's/testtesttest//' | grep $url`
 otp
 echo "Result Saved in $outputpath.html"
-echo ""
 fi
+echo `tput setaf 10` "" `tput sgr0`
 }
 web_cat(){
 web=`cat ./full/weburl | cut -d ',' -f 5 | grep 404`
