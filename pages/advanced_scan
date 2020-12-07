@@ -17,10 +17,6 @@ echo `tput setaf 45`"
  --------------------------------------------------------------------------
 "
 }
-output_yes(){
-sleep .12
-
-}
 scan(){
 echo `tput setaf 249`
 ./apps/ffuf/ffuf -w $path -u $url/FUZZ -t $threads $delay -timeout $timeout -o ./advanced/result -of csv -mc all > /dev/null
