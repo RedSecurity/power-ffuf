@@ -24,4 +24,4 @@ echo '      to know the different switches and install the prerequisites'
 echo '       In a word: power ffuf is a great tool for Scan'
 echo '        WebSite: RedSecurity.xyz'
 echo '         E-mail: Info@RedSecurity.xyz'
-echo ''
+echo `tput setaf 2` ''  `tput sgr0`
