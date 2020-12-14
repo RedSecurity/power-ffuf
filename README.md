@@ -1,5 +1,7 @@
 # power-ffuf
 Power FFUF is Very Fast and Powerful Web Fuzzer<br/>Power FFUF uses ffuf and hakrawler to scan<br/>Power FFUF is in some cases better and easier than ffuf, although it does not have some of the options of ffuf
+## ScreenShot
+![salam](./apps/screen.png)
 ## installation
 1. Install Golang
 2. Run the commands below
@@ -17,7 +19,5 @@ OR
 ```
 bash power-ffuf
 ```
-## ScreenShot
-![salam](./apps/screen.png)
 ## Contact us
 WebSite: https://redsecurity.xyz<br/>Email: info@redsecurity.xyz
