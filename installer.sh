@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/bash
 git clone https://github.com/ffuf/ffuf.git ./apps/ffuf
 cd ./apps/ffuf/
 go get
