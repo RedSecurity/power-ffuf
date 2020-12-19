@@ -57,7 +57,7 @@ then
 else
 otp_res=`(cat admin-finder/3000_ok | cut -d ',' -f 3 ; cat admin-finder/status_200 ; cat admin-finder/status_300_200) | sort | uniq -i | sed 's/$/testtesttest/' | grep -v $url/testtesttest | grep -v $url\testtesttest | sed 's/testtesttest//' | grep $url`
 otp
-echo "Result Saved in $outputpath.html"
+echo "Results Saved in $outputpath.html"
 fi
 echo `tput setaf 10` "" `tput sgr0`
 }
