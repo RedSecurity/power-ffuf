@@ -53,7 +53,7 @@ then
 else
 otp_res=`(cat advanced/3000_ok | cut -d ',' -f 3 ; cat advanced/status_200 ; cat advanced/status_300_200) | sort | uniq -i | grep $url`
 otp
-echo "Result Saved in $outputpath.html"
+echo "Results Saved in $outputpath.html"
 fi
 echo `tput setaf 10` "" `tput sgr0`
 }
